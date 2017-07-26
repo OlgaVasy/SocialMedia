@@ -1,5 +1,7 @@
 package com.example.service;
 
+import org.springframework.stereotype.Service;
+
 import com.example.mapper.ReplyTweetMapper;
 import com.example.mapper.RepostTweetMapper;
 import com.example.mapper.SimpleTweetMapper;
@@ -7,6 +9,7 @@ import com.example.repository.ReplyTweetRepository;
 import com.example.repository.RepostTweetRepository;
 import com.example.repository.SimpleTweetRepository;
 
+@Service
 public class TweetService {
 	
 	private SimpleTweetMapper simpleTweetMapper;

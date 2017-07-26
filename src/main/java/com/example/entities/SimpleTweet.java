@@ -1,9 +1,13 @@
 package com.example.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class SimpleTweet {
@@ -16,6 +20,12 @@ public class SimpleTweet {
 	private Tweet tweet;
 	
 	private String content;
+	
+	@OneToMany(mappedBy = "repostOf")
+	private Set<RepostTweet> reposts = new HashSet<RepostTweet>();	
+	
+	@OneToMany(mappedBy = "inReplyTo")
+	private Set<ReplyTweet> replies = new HashSet<ReplyTweet>();	
 	
 	public Integer getId() {
 		return id;

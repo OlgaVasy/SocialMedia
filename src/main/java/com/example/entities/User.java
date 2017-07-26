@@ -1,42 +1,39 @@
 package com.example.entities;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-@Entity
+@Entity(name = "media_user")
 public class User {
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer id;	
 	
-	private String username;
 	private Date timestamp;
 	
 	@Embedded
 	private Profile profile;
-	
+
 	@Embedded
 	private Credentials credentials;
 	
 	private boolean isAvailable;
+	
+	//private Set<User>followers;
 	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	}	
 	public Profile getProfile() {
 		return profile;
 	}
@@ -81,4 +78,16 @@ public class User {
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
+	public Credentials getCredentials() {
+		return credentials;
+	}
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
+	}
+	/*public Set<User> getFollowers() {
+		return followers;
+	}
+	public void setFollowers(Set<User> followers) {
+		this.followers = followers;
+	}*/
 }

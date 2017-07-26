@@ -9,8 +9,9 @@ import com.example.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	public List<User>getByIsAvailableTrue();
-	public User getByCredentialsUsername(String username);
+	public List<User>findByIsAvailableTrue();
+	public User findByCredentialsUsername(String username);
+	public User findByCredentialsUsernameAndIsAvailableTrue(String username);
 	
 
 	

@@ -3,10 +3,12 @@ package com.example.entities;
 import java.sql.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 public class Tweet {
 
+	@ManyToOne
 	private User author;
 	private Date posted;
 	

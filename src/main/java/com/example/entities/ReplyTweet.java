@@ -4,6 +4,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ReplyTweet {
@@ -15,6 +16,7 @@ public class ReplyTweet {
 	@Embedded
 	private Tweet tweet;
 	
+	@ManyToOne
 	private SimpleTweet inReplyTo;
 	
 	public Integer getId() {
