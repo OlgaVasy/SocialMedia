@@ -1,43 +1,43 @@
-package com.example.entities;
+package com.example.dto;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
-public class Hashtag {
-	
-	@Id
-	@GeneratedValue
-	private Long id;
+public class HashtagDto {
 	
 	private String label;
 	private Date firstUsed;
 	private Date lastUsed;
 	
-	public Long getId() {
-		return id;
+	public HashtagDto() {		
 	}
-	public void setId(Long id) {
-		this.id = id;
+	
+	public HashtagDto(String label, Date firstUsed, Date lastUsed) {
+		super();
+		this.setLabel(label);
+		this.setFirstUsed(firstUsed);	
+		this.setLastUsed(lastUsed);
 	}
+
 	public String getLabel() {
 		return label;
 	}
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
 	public Date getFirstUsed() {
 		return firstUsed;
 	}
+
 	public void setFirstUsed(Date firstUsed) {
 		this.firstUsed = firstUsed;
 	}
+
 	public Date getLastUsed() {
 		return lastUsed;
 	}
+
 	public void setLastUsed(Date lastUsed) {
 		this.lastUsed = lastUsed;
 	}

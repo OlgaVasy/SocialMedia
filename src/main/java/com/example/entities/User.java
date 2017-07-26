@@ -12,7 +12,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	
 	private String username;
 	private Date timestamp;
@@ -21,12 +21,14 @@ public class User {
 	private Profile profile;
 	
 	@Embedded
-	private Credentials credentials;	
+	private Credentials credentials;
 	
-	public Long getId() {
+	private boolean isAvailable;
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getUsername() {
@@ -72,5 +74,11 @@ public class User {
 	}
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 }

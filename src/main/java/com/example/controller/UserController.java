@@ -1,7 +1,9 @@
 package com.example.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,16 +22,29 @@ public class UserController {
 
 	public UserController(UserService userService) {
 		this.userService = userService;
-	}	
+	}		
 
-	@GetMapping
-	public List<UserDto> users() {
+	@GetMapping("users")
+	public List<UserDto> getUsers() {
 		return userService.getAll();
 	}
 	
-	@GetMapping("{id}")
-	public UserDto getUserById(@PathVariable Long id) {
-		return userService.findById(id);
+	@GetMapping("users/@{username}")
+	public UserDto getUserByUsername(@PathVariable String username) {
+		//if(userService.findByUsername(username)!=null)
+			return userService.findByUsername(username);		
+	}
+	@GetMapping("validate/tag/exists/{label}")
+	public boolean hashtagExists() {
+		return ;
+	}
+	@GetMapping("validate/username/exists/@{username}")
+	public boolean usernameExists() {
+		return ;
+	}
+	@GetMapping("validate/username/available/@{username}")
+	public boolean usernameAvailable() {
+		return ;
 	}
 		
 	@PostMapping

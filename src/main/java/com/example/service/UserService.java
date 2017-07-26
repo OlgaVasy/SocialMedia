@@ -26,11 +26,14 @@ public class UserService {
 		userRepo.save(realUser);
 		return true;
 	}
-	public UserDto findById(Long id) {
+	public UserDto findById(Integer id) {
 		return userMapper.toDto(userRepo.getOne(id));
 	}
 	public List<UserDto> getAll() {
-		return userRepo.getAll().stream().map(userMapper::toDto).collect(Collectors.toList());
+		return userRepo.getByIsAvailableTrue().stream().map(userMapper::toDto).collect(Collectors.toList());
 	}	
+	public UserDto findByUsername(String username) {
+		return userMapper.toDto(userRepo.getByCredentialsUsername(username));
+	}
 
 }
