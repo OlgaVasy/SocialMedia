@@ -4,32 +4,54 @@ import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-@Embeddable
+@Entity
 public class Tweet {
 	
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	@ManyToMany(mappedBy = "hashTweet")
+	private Set<Hashtag> tag;
 
 	@ManyToOne
 	private User author;
-	private Date posted;	
+	private Date posted;
+	
+	private String content;	
+	
+	@ManyToMany
+	private Set<User>liked;	
+	
+	@ManyToOne
+	private Tweet repostOf; 
+	
+	@ManyToOne
+	private Tweet inReplyTo;	
+
+	public Tweet getInReplyTo() {
+		return inReplyTo;
+	}
+	public void setInReplyTo(Tweet inReplyTo) {
+		this.inReplyTo = inReplyTo;
+	}
+
+	public Tweet getRepostOf() {
+		return repostOf;
+	}
+	public void setRepostOf(Tweet repostOf) {
+		this.repostOf = repostOf;
+	}
 	
 	private boolean isNotDeleted = true;
-	@ManyToMany
-	private Set<User>liked;
 	
-	public Integer getId(){
-		return id;
-	}
-	public void setId(Integer id){
-		this.id = id;
-	}	
 	public User getAuthor() {
 		return author;
 	}
@@ -41,6 +63,18 @@ public class Tweet {
 	}
 	public void setTimestamp(Date posted) {
 		this.posted = posted;
+	}	
+	public boolean isNotDeleted() {
+		return isNotDeleted;
+	}
+	public void setNotDeleted(boolean isNotDeleted) {
+		this.isNotDeleted = isNotDeleted;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	@Override
 	public int hashCode() {
@@ -65,11 +99,11 @@ public class Tweet {
 			return false;
 		return true;
 	}
-	public boolean isNotDeleted() {
-		return isNotDeleted;
+	public String getContent() {
+		return content;
 	}
-	public void setNotDeleted(boolean isNotDeleted) {
-		this.isNotDeleted = isNotDeleted;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public Set<User> getLiked() {
 		return liked;
@@ -77,4 +111,12 @@ public class Tweet {
 	public void setLiked(Set<User> liked) {
 		this.liked = liked;
 	}
+	public Set<Hashtag> getTag() {
+		return tag;
+	}
+	public void setTag(Set<Hashtag> tag) {
+		this.tag = tag;
+	}
+	
+	
 }

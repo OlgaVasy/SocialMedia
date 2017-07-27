@@ -10,29 +10,16 @@ import org.springframework.stereotype.Service;
 import com.example.dto.SimpleTweetDto;
 import com.example.dto.TweetDto;
 import com.example.entities.Credentials;
-import com.example.entities.SimpleTweet;
 import com.example.entities.Tweet;
 import com.example.entities.User;
-import com.example.mapper.ReplyTweetMapper;
-import com.example.mapper.RepostTweetMapper;
-import com.example.mapper.SimpleTweetMapper;
 import com.example.mapper.TweetMapper;
 import com.example.repository.TweetRepository;
 import com.example.repository.UserRepository;
 import com.google.common.collect.Lists;
-import com.example.repository.ReplyTweetRepository;
-import com.example.repository.RepostTweetRepository;
-import com.example.repository.SimpleTweetRepository;
 
 @Service
 public class TweetService {
 
-	private SimpleTweetMapper simpleTweetMapper;
-	private SimpleTweetRepository simpleTweetRepo;
-	private RepostTweetMapper repostTweetMapper;
-	private RepostTweetRepository repostTweetRepo;
-	private ReplyTweetMapper replyTweetMapper;
-	private ReplyTweetRepository replyTweetRepo;
 	private TweetRepository tweetRepo;
 	private TweetMapper tweetMapper;
 	private UserRepository userRepo;
@@ -66,8 +53,7 @@ public class TweetService {
 	}
 
 	public List<SimpleTweetDto> getAllSimple() {
-		return simpleTweetRepo.findByTweetIsNotDeletedTrue().stream().map(simpleTweetMapper::toDto)
-				.collect(Collectors.toList());
+		return tweetRepo.findByIsNotDeletedTrue().stream().map(tweetMapper::toSimpleDto).collect(Collectors.toList());
 	}
 
 	public List<SimpleTweetDto> taggedTweet(String label) {
@@ -118,24 +104,21 @@ public class TweetService {
 				.getCredentials().getPassword())
 			return null;
 		else {
-			SimpleTweet simpleTweet = null;
-			simpleTweet.getTweet()
-					.setAuthor(userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()));
-			simpleTweet.getTweet().getAuthor().setCredentials(credentials);
-			userRepo.save(simpleTweet.getTweet().getAuthor());
-			simpleTweet.setContent(content);
-			simpleTweetRepo.save(simpleTweet);
-			tweetRepo.save(simpleTweet.getTweet());
-			userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()).getTweets()
-					.add(simpleTweet.getTweet());
+			Tweet tweet = null;
+			tweet.setAuthor(userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()));
+			tweet.getAuthor().setCredentials(credentials);
+			userRepo.save(tweet.getAuthor());
+			tweet.setContent(content);
+			tweetRepo.save(tweet);
+			userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()).getTweets().add(tweet);
 
-			if (String.valueOf(simpleTweet.getContent().charAt(0)) == "#") {
-				String label = simpleTweet.getContent().split(" ")[0];
+			if (String.valueOf(tweet.getContent().charAt(0)) == "#") {
+				String label = tweet.getContent().split(" ")[0];
 			}
 
 			// TODO add hashtag
 
-			return simpleTweetMapper.toDto(simpleTweet);
+			return tweetMapper.toSimpleDto(tweet);
 
 		}
 	}
@@ -147,14 +130,23 @@ public class TweetService {
 				.getCredentials().getPassword())
 			return false;
 		else {
-			tweetRepo.findOne(id).getLiked().add(userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()));
+			tweetRepo.findOne(id).getLiked()
+					.add(userRepo.findByCredentialsUsernameAndIsAvailableTrue(credentials.getUsername()));
 			return true;
 		}
 	}
-	public List<User> likes(Integer id){
-		
-		
-		return null;
-		
+
+	public List<User> likes(Integer id) {
+		if (tweetRepo.findByIdAndIsNotDeletedTrue(id) != null) {
+			List<User> list = new ArrayList<User>();
+			for (User user : userRepo.findAll()) {
+				if (user.isAvailable()) {
+					if (like(user.getCredentials(), id))
+						list.add(user);
+				}
+			}
+			return list;
+		} else
+			return null;
 	}
 }

@@ -17,6 +17,7 @@ import com.example.dto.SimpleTweetDto;
 import com.example.dto.TweetDto;
 import com.example.dto.UserDtoToCreate;
 import com.example.entities.Credentials;
+import com.example.entities.User;
 import com.example.service.TweetService;
 
 @RestController
@@ -134,5 +135,18 @@ public class TweetController {
 			}
 		}
 		
+	}
+	@GetMapping("tweets/@{id}/likes")
+	public List<User> getLikes(@PathVariable Integer id, HttpServletResponse response) {
+		if (tweetService.likes(id) != null)
+			return tweetService.likes(id);
+		else {
+			try {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The tweet doesn't exist.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 	}
 }

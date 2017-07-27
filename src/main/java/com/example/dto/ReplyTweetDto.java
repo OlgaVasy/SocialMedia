@@ -1,20 +1,25 @@
 package com.example.dto;
 
 import java.sql.Date;
+import java.util.Set;
 
-import com.example.entities.SimpleTweet;
+import javax.persistence.ManyToMany;
+import com.example.entities.Tweet;
 import com.example.entities.User;
 
-public class ReplyTweetDto {
+public class ReplyTweetDto {	
 	
 	private User author;
 	private Date posted;
-	private SimpleTweet inReplyTo;	
+	private Tweet inReplyTo;	
+	
+	@ManyToMany
+	private Set<User>liked;	
 	
 	public ReplyTweetDto() {		
 	}
 	
-	public ReplyTweetDto(User author, Date posted, SimpleTweet inReplyTo) {
+	public ReplyTweetDto(User author, Date posted, Tweet inReplyTo) {
 		super();
 		this.setAuthor(author);
 		this.setPosted(posted);	
@@ -37,12 +42,14 @@ public class ReplyTweetDto {
 		this.posted = posted;
 	}
 
-	public SimpleTweet getInReplyTo() {
+	public Tweet getInReplyTo() {
 		return inReplyTo;
 	}
 
-	public void setInReplyTo(SimpleTweet inReplyTo) {
+	public void setInReplyTo(Tweet inReplyTo) {
 		this.inReplyTo = inReplyTo;
 	}
+	
+
 
 }

@@ -2,19 +2,19 @@ package com.example.dto;
 
 import java.sql.Date;
 
-import com.example.entities.SimpleTweet;
+import com.example.entities.Tweet;
 import com.example.entities.User;
 
 public class RepostTweetDto {
 	
 	private User author;
 	private Date posted;
-	private SimpleTweet repostOf;
+	private Tweet repostOf;
 	
 	public RepostTweetDto() {		
 	}
 	
-	public RepostTweetDto(User author, Date posted, SimpleTweet repostOf) {
+	public RepostTweetDto(User author, Date posted, Tweet repostOf) {
 		super();
 		this.setAuthor(author);
 		this.setPosted(posted);	
@@ -37,11 +37,11 @@ public class RepostTweetDto {
 		this.posted = posted;
 	}
 
-	public SimpleTweet getRepostOf() {
+	public Tweet getRepostOf() {
 		return repostOf;
 	}
 
-	public void setRepostOf(SimpleTweet repostOf) {
+	public void setRepostOf(Tweet repostOf) {
 		this.repostOf = repostOf;
 	}
 

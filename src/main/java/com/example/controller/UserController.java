@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.dto.UserDto;
 import com.example.dto.UserDtoToCreate;
 import com.example.entities.Credentials;
+import com.example.entities.Profile;
 import com.example.service.UserService;
 
 @RestController
@@ -76,8 +77,8 @@ public class UserController {
 			}
 	}	
 	@PatchMapping("users/@{username}")
-	public void patchTheUser(@RequestBody UserDtoToCreate updateIt, HttpServletResponse response) {		
-		if(userService.patch(updateIt)!=null)
+	public void patchTheUser(@RequestBody Credentials credentials, @RequestBody Profile profile, @PathVariable String username, HttpServletResponse response) {		
+		if(userService.patch(credentials, profile, username)!=null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {

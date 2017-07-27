@@ -10,15 +10,14 @@ public class UserDto {
 	private Profile profile;
 	private Date timestamp;
 	
-	public UserDto() {		
-	}
-	
-	public UserDto(String username, Profile profile) {
+	public UserDto() {			
+	}	
+	public UserDto(String username, Profile profile, Date timestamp) {
 		super();
 		this.setUsername(username);
-		this.setProfile(profile);		
+		this.setProfile(profile);	
+		this.timestamp = timestamp;
 	}
-
 	public String getUsername() {
 		return username;
 	}
