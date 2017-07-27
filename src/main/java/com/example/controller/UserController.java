@@ -65,7 +65,7 @@ public class UserController {
 			}
 	}	
 	@DeleteMapping("users/@{username}")
-	public void deleteAnUser(@RequestBody Credentials deleteIt, HttpServletResponse response) {		
+	public void deleteTheUser(@RequestBody Credentials deleteIt, HttpServletResponse response) {		
 		if(userService.delete(deleteIt)!=null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
@@ -76,7 +76,7 @@ public class UserController {
 			}
 	}	
 	@PatchMapping("users/@{username}")
-	public void patchAnUser(@RequestBody UserDtoToCreate updateIt, HttpServletResponse response) {		
+	public void patchTheUser(@RequestBody UserDtoToCreate updateIt, HttpServletResponse response) {		
 		if(userService.patch(updateIt)!=null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
@@ -85,6 +85,36 @@ public class UserController {
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}
+	}	
+	@PostMapping("users/@{username}/follow")
+	public void followTheUser(@RequestBody Credentials credentials, @RequestBody String username, HttpServletResponse response) {		
+		if(userService.follow(credentials, username))
+			response.setStatus(HttpServletResponse.SC_OK);
+		else
+			try {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The user doesn't exist, the password is wrong or the user is already followed.");
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+	}	
+	@PostMapping("users/@{username}/unfollow")
+	public void unfollowTheUser(@RequestBody Credentials credentials, @RequestBody String username, HttpServletResponse response) {		
+		if(userService.unfollow(credentials, username))
+			response.setStatus(HttpServletResponse.SC_OK);
+		else
+			try {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The user doesn't exist, the password is wrong or the user isn't followed.");
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+	}	
+	@GetMapping("users/@{username}/followers")
+	public List<UserDto> getFollowers(String username) {
+		return userService.getFollowers(username);
+	}	
+	@GetMapping("users/@{username}/following")
+	public List<UserDto> getFollowed(String username) {
+		return userService.getFollowed(username);
 	}	
 	
 

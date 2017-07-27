@@ -10,16 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class SimpleTweet {
-	
+public class SimpleTweet {	
+		
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer simpleId;
 	
 	@Embedded
 	private Tweet tweet;
-	
-	private String content;
+
+	private String content;	
 	
 	@OneToMany(mappedBy = "repostOf")
 	private Set<RepostTweet> reposts = new HashSet<RepostTweet>();	
@@ -27,23 +27,23 @@ public class SimpleTweet {
 	@OneToMany(mappedBy = "inReplyTo")
 	private Set<ReplyTweet> replies = new HashSet<ReplyTweet>();	
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public Integer getSimpleId() {
+		return simpleId;
+	}
+	public void setSimpleId(Integer simpleId) {
+		this.simpleId = simpleId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((simpleId == null) ? 0 : simpleId.hashCode());
 		return result;
 	}
 	@Override
@@ -55,13 +55,14 @@ public class SimpleTweet {
 		if (getClass() != obj.getClass())
 			return false;
 		SimpleTweet other = (SimpleTweet) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (simpleId == null) {
+			if (other.simpleId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!simpleId.equals(other.simpleId))
 			return false;
 		return true;
 	}
+	
 	
 
 }

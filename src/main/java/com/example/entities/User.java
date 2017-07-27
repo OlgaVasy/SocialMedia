@@ -7,6 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "media_user")
@@ -26,7 +27,14 @@ public class User {
 	
 	private boolean isAvailable;
 	
-	//private Set<User>followers;
+	@ManyToMany
+	private Set<User>followers;
+	@ManyToMany
+	private Set<User>followed;
+	@OneToMany(mappedBy = "author")
+	private Set<Tweet>tweets;
+	//@OneToMany
+	//private Set<Tweet>mentions;
 	
 	public Integer getId() {
 		return id;
@@ -84,10 +92,28 @@ public class User {
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
-	/*public Set<User> getFollowers() {
+	public Set<User> getFollowers() {
 		return followers;
 	}
 	public void setFollowers(Set<User> followers) {
 		this.followers = followers;
+	}
+	public Set<User> getFollowed() {
+		return followed;
+	}
+	public void setFollowed(Set<User> followed) {
+		this.followed = followed;
+	}
+/*	public Set<Tweet> getMentions() {
+		return mentions;
+	}
+	public void setMentions(Set<Tweet> mentions) {
+		this.mentions = mentions;
 	}*/
+	public Set<Tweet> getTweets() {
+		return tweets;
+	}
+	public void setTweets(Set<Tweet> tweets) {
+		this.tweets = tweets;
+	}
 }

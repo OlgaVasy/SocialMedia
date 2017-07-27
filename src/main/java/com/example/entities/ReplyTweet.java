@@ -8,34 +8,35 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ReplyTweet {
-	
+
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer replyId;
 	
 	@Embedded
 	private Tweet tweet;
-	
+
 	@ManyToOne
 	private SimpleTweet inReplyTo;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public SimpleTweet getInReplyTo() {
 		return inReplyTo;
 	}
 	public void setInReplyTo(SimpleTweet inReplyTo) {
 		this.inReplyTo = inReplyTo;
 	}
+	public Integer getReplyId() {
+		return replyId;
+	}
+	public void setReplyId(Integer replyId) {
+		this.replyId = replyId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((replyId == null) ? 0 : replyId.hashCode());
 		return result;
 	}
 	@Override
@@ -47,12 +48,12 @@ public class ReplyTweet {
 		if (getClass() != obj.getClass())
 			return false;
 		ReplyTweet other = (ReplyTweet) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (replyId == null) {
+			if (other.replyId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!replyId.equals(other.replyId))
 			return false;
 		return true;
-	}
+	}	
 
 }

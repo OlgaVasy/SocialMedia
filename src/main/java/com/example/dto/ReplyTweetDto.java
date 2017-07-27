@@ -9,7 +9,7 @@ public class ReplyTweetDto {
 	
 	private User author;
 	private Date posted;
-	private SimpleTweet inReplyTo;
+	private SimpleTweet inReplyTo;	
 	
 	public ReplyTweetDto() {		
 	}

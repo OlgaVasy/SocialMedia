@@ -8,34 +8,34 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class RepostTweet {
-	
+
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer repostId;
 	
 	@Embedded
-	private Tweet tweet;
+	private Tweet tweet;	
 	
 	@ManyToOne
 	private SimpleTweet repostOf; 
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public SimpleTweet getRepostOf() {
 		return repostOf;
 	}
 	public void setRepostOf(SimpleTweet repostOf) {
 		this.repostOf = repostOf;
 	}
+	public Integer getRepostId() {
+		return repostId;
+	}
+	public void setRepostId(Integer repostId) {
+		this.repostId = repostId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((repostId == null) ? 0 : repostId.hashCode());
 		return result;
 	}
 	@Override
@@ -47,12 +47,14 @@ public class RepostTweet {
 		if (getClass() != obj.getClass())
 			return false;
 		RepostTweet other = (RepostTweet) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (repostId == null) {
+			if (other.repostId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!repostId.equals(other.repostId))
 			return false;
 		return true;
 	}
+	
+	
 
 }
