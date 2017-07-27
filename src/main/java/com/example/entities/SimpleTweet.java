@@ -1,6 +1,5 @@
 package com.example.entities;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Embedded;
@@ -22,10 +21,9 @@ public class SimpleTweet {
 	private String content;	
 	
 	@OneToMany(mappedBy = "repostOf")
-	private Set<RepostTweet> reposts = new HashSet<RepostTweet>();	
-	
+	private Set<RepostTweet> reposts;	
 	@OneToMany(mappedBy = "inReplyTo")
-	private Set<ReplyTweet> replies = new HashSet<ReplyTweet>();	
+	private Set<ReplyTweet> replies;	
 	
 	public String getContent() {
 		return content;
@@ -61,6 +59,24 @@ public class SimpleTweet {
 		} else if (!simpleId.equals(other.simpleId))
 			return false;
 		return true;
+	}
+	public Set<ReplyTweet> getReplies() {
+		return replies;
+	}
+	public void setReplies(Set<ReplyTweet> replies) {
+		this.replies = replies;
+	}
+	public Set<RepostTweet> getReposts() {
+		return reposts;
+	}
+	public void setReposts(Set<RepostTweet> reposts) {
+		this.reposts = reposts;
+	}
+	public Tweet getTweet() {
+		return tweet;
+	}
+	public void setTweet(Tweet tweet) {
+		this.tweet = tweet;
 	}
 	
 	

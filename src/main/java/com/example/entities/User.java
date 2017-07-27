@@ -23,18 +23,20 @@ public class User {
 	private Profile profile;
 
 	@Embedded
-	private Credentials credentials;
+	private Credentials credentials;	
 	
 	private boolean isAvailable;
 	
-	@ManyToMany
-	private Set<User>followers;
-	@ManyToMany
+	@ManyToMany(mappedBy = "followed")
+	private Set<User>followers;	
 	private Set<User>followed;
+	
 	@OneToMany(mappedBy = "author")
 	private Set<Tweet>tweets;
-	//@OneToMany
-	//private Set<Tweet>mentions;
+	@OneToMany
+	private Set<SimpleTweet>mentions;
+	@ManyToMany(mappedBy = "liked")
+	private Set<Tweet>likes;
 	
 	public Integer getId() {
 		return id;
@@ -104,16 +106,22 @@ public class User {
 	public void setFollowed(Set<User> followed) {
 		this.followed = followed;
 	}
-/*	public Set<Tweet> getMentions() {
+	public Set<SimpleTweet> getMentions() {
 		return mentions;
 	}
-	public void setMentions(Set<Tweet> mentions) {
+	public void setMentions(Set<SimpleTweet> mentions) {
 		this.mentions = mentions;
-	}*/
+	}
 	public Set<Tweet> getTweets() {
 		return tweets;
 	}
 	public void setTweets(Set<Tweet> tweets) {
 		this.tweets = tweets;
+	}
+	public Set<Tweet> getLikes() {
+		return likes;
+	}
+	public void setLikes(Set<Tweet> likes) {
+		this.likes = likes;
 	}
 }

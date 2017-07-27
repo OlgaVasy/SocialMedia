@@ -1,10 +1,12 @@
 package com.example.entities;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Embeddable
@@ -19,6 +21,8 @@ public class Tweet {
 	private Date posted;	
 	
 	private boolean isNotDeleted = true;
+	@ManyToMany
+	private Set<User>liked;
 	
 	public Integer getId(){
 		return id;
@@ -66,5 +70,11 @@ public class Tweet {
 	}
 	public void setNotDeleted(boolean isNotDeleted) {
 		this.isNotDeleted = isNotDeleted;
+	}
+	public Set<User> getLiked() {
+		return liked;
+	}
+	public void setLiked(Set<User> liked) {
+		this.liked = liked;
 	}
 }

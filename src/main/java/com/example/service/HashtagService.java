@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.example.dto.HashtagDto;
+import com.example.entities.Hashtag;
 import com.example.mapper.HashtagMapper;
 import com.example.repository.HashtagRepository;
 
@@ -27,9 +28,8 @@ public class HashtagService {
 	}
 	public List<HashtagDto> getAll() {
 		return hashtagRepo.findAll().stream().map(hashtagMapper::toDto).collect(Collectors.toList());
-	}	
-	public HashtagDto findByHashtag(String label) {
-		return hashtagMapper.toDto(hashtagRepo.findByLabel(label));
-	}
+	}				
+		
+
 
 }
