@@ -3,6 +3,7 @@ package com.example.entities;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 public class User {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue	
 	private Integer id;	
 	
 	private Date timestamp;
@@ -27,8 +28,11 @@ public class User {
 	
 	private boolean isAvailable=true;
 	
+	@Column(name = "user_followers", columnDefinition = "varchar")
 	@ManyToMany
 	private Set<User>followers;
+	
+	@Column(name = "user_followed", columnDefinition = "varchar")
 	@ManyToMany(mappedBy = "followers")
 	private Set<User>followed;
 	

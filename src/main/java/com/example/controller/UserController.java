@@ -77,8 +77,8 @@ public class UserController {
 			}
 	}	
 	@PatchMapping("users/@{username}")
-	public void patchTheUser(@RequestBody Credentials credentials, @RequestBody Profile profile, @PathVariable String username, HttpServletResponse response) {		
-		if(userService.patch(credentials, profile, username)!=null)
+	public void patchTheUser(@RequestBody UserDtoToCreate buildIt, @PathVariable String username, HttpServletResponse response) {		
+		if(userService.patch(buildIt, username)!=null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {
@@ -88,7 +88,7 @@ public class UserController {
 			}
 	}	
 	@PostMapping("users/@{username}/follow")
-	public void followTheUser(@RequestBody Credentials credentials, @RequestBody String username, HttpServletResponse response) {		
+	public void followTheUser(@RequestBody Credentials credentials, @PathVariable String username, HttpServletResponse response) {		
 		if(userService.follow(credentials, username))
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
@@ -99,7 +99,7 @@ public class UserController {
 			}
 	}	
 	@PostMapping("users/@{username}/unfollow")
-	public void unfollowTheUser(@RequestBody Credentials credentials, @RequestBody String username, HttpServletResponse response) {		
+	public void unfollowTheUser(@RequestBody Credentials credentials, @PathVariable String username, HttpServletResponse response) {		
 		if(userService.unfollow(credentials, username))
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
@@ -110,11 +110,11 @@ public class UserController {
 			}
 	}	
 	@GetMapping("users/@{username}/followers")
-	public List<UserDto> getFollowers(String username) {
+	public List<UserDto> getFollowers(@PathVariable String username) {
 		return userService.getFollowers(username);
 	}	
 	@GetMapping("users/@{username}/following")
-	public List<UserDto> getFollowed(String username) {
+	public List<UserDto> getFollowed(@PathVariable String username) {
 		return userService.getFollowed(username);
 	}	
 	

@@ -6,6 +6,7 @@ import com.example.dto.ReplyTweetDto;
 import com.example.dto.RepostTweetDto;
 import com.example.dto.SimpleTweetDto;
 import com.example.dto.TweetDto;
+import com.example.dto.TweetDtoToCreate;
 import com.example.entities.Tweet;
 
 @Mapper(componentModel = "spring")
@@ -22,6 +23,9 @@ public interface TweetMapper {
 	
 	Tweet fromDto(TweetDto dto);
 	TweetDto toDto(Tweet tweet);
+	
+	Tweet fromTweetDtoToCreate(TweetDtoToCreate dto);
+	TweetDtoToCreate toTweetDtoToCreate(Tweet tweet);
 	
 
 

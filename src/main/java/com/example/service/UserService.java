@@ -68,7 +68,7 @@ public class UserService {
 			return userMapper.toDto(userRepo.findByCredentialsUsername(credentials.getUsername()));
 		}
 	}
-	public UserDto patch(Credentials credentials, Profile profile, String username) {		
+	public UserDto patch(UserDtoToCreate buildIt, String username) {		
 		User realUser = userRepo.findByCredentialsUsername(username);
 		if(usernameAvailable(username)==false){			
 			return null;
@@ -76,8 +76,8 @@ public class UserService {
 		//else if(updateIt.getCredentials().getPassword()!=realUser.getCredentials().getPassword())
 		//	return null;		
 		else{
-			realUser.setCredentials(credentials);
-			realUser.setProfile(profile);
+			realUser.setCredentials(buildIt.getCredentials());
+			realUser.setProfile(buildIt.getProfile());
 			userRepo.save(realUser);
 			return userMapper.toDto(realUser);
 	}}
@@ -86,16 +86,14 @@ public class UserService {
 		User potentialFollowed = userRepo.findByCredentialsUsername(username);
 		if(!potentialFollowed.isAvailable())			
 			return false;		
-		if(potentialFollowed.getFollowers().contains(potentialFollower))			
-			return false;	
-		else if(!usernameAvailable(potentialFollower.getCredentials().getUsername()))
+		else if(!potentialFollower.isAvailable())
 			return false;
+		else if(potentialFollowed.getFollowers().contains(potentialFollower))			
+			return false;			
 		//else if(potentialFollower.getCredentials().getPassword()!=credentials.getPassword())
 		//	return false;
-		else{
-			potentialFollowed.getFollowers().add(potentialFollower);
-			potentialFollower.getFollowed().add(potentialFollowed);
-			userRepo.save(potentialFollowed);
+		else{			
+			potentialFollower.getFollowed().add(potentialFollowed);			
 			userRepo.save(potentialFollower);
 			return true;
 	}}
@@ -103,20 +101,19 @@ public class UserService {
 		User Follower = userRepo.findByCredentialsUsername(credentials.getUsername());
 		User Followed = userRepo.findByCredentialsUsername(username);
 		if(!Followed.isAvailable())			
-			return false;		
-		if(!Followed.getFollowers().contains(Follower))			
 			return false;	
-		else if(!usernameAvailable(Follower.getCredentials().getUsername()))
+		else if(!Follower.isAvailable())
 			return false;
+		if(Followed.getFollowers().contains(Follower))			
+			return false;			
 		//else if(Follower.getCredentials().getPassword()!=credentials.getPassword())
 		//	return false;
-		else{
-			Followed.getFollowers().remove(Follower);
-			Follower.getFollowed().remove(Followed);
-			userRepo.save(Followed);
+		else{			
+			Follower.getFollowed().remove(Followed);	
 			userRepo.save(Follower);
 			return true;
-	}}
+	}
+		}
 	public List<UserDto> getFollowers(String username) {
 		return userRepo.findByCredentialsUsernameAndIsAvailableTrue(username).getFollowers()
 				.stream().filter(User::isAvailable).map(userMapper::toDto).collect(Collectors.toList());

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.SimpleTweetDto;
 import com.example.dto.TweetDto;
+import com.example.dto.TweetDtoToCreate;
 import com.example.dto.UserDtoToCreate;
 import com.example.entities.Credentials;
 import com.example.entities.User;
@@ -107,10 +109,9 @@ public class TweetController {
 	}
 
 	@PostMapping("tweets")
-	public SimpleTweetDto buildATweet(@RequestBody Credentials credentials, String content,
-			HttpServletResponse response) {
-		if (tweetService.post(credentials, content) != null)
-			return tweetService.post(credentials, content);
+	public SimpleTweetDto buildATweet(@RequestBody TweetDtoToCreate buildIt, HttpServletResponse response) {
+		if (tweetService.post(buildIt) != null)
+			return tweetService.post(buildIt);
 		else {
 			try {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
@@ -122,7 +123,7 @@ public class TweetController {
 		return null;
 	}
 	@PostMapping("tweets/{id}/like")
-	public void likeTweet(@RequestBody Credentials credentials, Integer id,
+	public void likeTweet(@RequestBody Credentials credentials, @RequestBody Integer id,
 			HttpServletResponse response) {
 		if (tweetService.like(credentials, id))
 			response.setStatus(HttpServletResponse.SC_OK);
