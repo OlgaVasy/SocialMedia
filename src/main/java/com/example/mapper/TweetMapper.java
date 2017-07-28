@@ -13,20 +13,23 @@ import com.example.entities.Tweet;
 public interface TweetMapper {
 
 	Tweet fromSimpleDto(SimpleTweetDto simpleDto);
-	SimpleTweetDto toSimpleDto(Tweet tweet);
-	
-	Tweet fromReplyDto(ReplyTweetDto replyDto);
-	ReplyTweetDto toReplyDto(Tweet tweet);
-	
-	Tweet fromRepostDto(RepostTweetDto repostDto);
-	RepostTweetDto toRepostDto(Tweet tweet);
-	
-	Tweet fromDto(TweetDto dto);
-	TweetDto toDto(Tweet tweet);
-	
-	Tweet fromTweetDtoToCreate(TweetDtoToCreate dto);
-	TweetDtoToCreate toTweetDtoToCreate(Tweet tweet);
-	
 
+	SimpleTweetDto toSimpleDto(Tweet tweet);
+
+	Tweet fromReplyDto(ReplyTweetDto replyDto);
+
+	ReplyTweetDto toReplyDto(Tweet tweet);
+
+	Tweet fromRepostDto(RepostTweetDto repostDto);
+
+	RepostTweetDto toRepostDto(Tweet tweet);
+
+	Tweet fromDto(TweetDto dto);
+
+	TweetDto toDto(Tweet tweet);
+
+	Tweet fromTweetDtoToCreate(TweetDtoToCreate dto);
+
+	TweetDtoToCreate toTweetDtoToCreate(Tweet tweet);
 
 }

@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.SimpleTweetDto;
 import com.example.dto.TweetDto;
 import com.example.dto.TweetDtoToCreate;
-import com.example.dto.UserDtoToCreate;
 import com.example.entities.Credentials;
 import com.example.entities.User;
 import com.example.service.TweetService;
@@ -114,17 +112,16 @@ public class TweetController {
 			return tweetService.post(buildIt);
 		else {
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-						"The credentials don't match an active user.");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The credentials don't match an active user.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		return null;
 	}
+
 	@PostMapping("tweets/{id}/like")
-	public void likeTweet(@RequestBody Credentials credentials, @RequestBody Integer id,
-			HttpServletResponse response) {
+	public void likeTweet(@RequestBody Credentials credentials, @RequestBody Integer id, HttpServletResponse response) {
 		if (tweetService.like(credentials, id))
 			response.setStatus(HttpServletResponse.SC_OK);
 		else {
@@ -135,8 +132,9 @@ public class TweetController {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
+
 	@GetMapping("tweets/@{id}/likes")
 	public List<User> getLikes(@PathVariable Integer id, HttpServletResponse response) {
 		if (tweetService.likes(id) != null)

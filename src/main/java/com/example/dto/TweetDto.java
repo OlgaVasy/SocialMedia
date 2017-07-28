@@ -5,17 +5,17 @@ import java.sql.Date;
 import com.example.entities.User;
 
 public class TweetDto {
-	
+
 	private User author;
 	private Date posted;
-	
-	public TweetDto() {		
+
+	public TweetDto() {
 	}
-	
+
 	public TweetDto(User author, Date posted) {
 		super();
 		this.setAuthor(author);
-		this.setPosted(posted);		
+		this.setPosted(posted);
 	}
 
 	public User getAuthor() {

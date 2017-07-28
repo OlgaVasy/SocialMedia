@@ -28,95 +28,113 @@ public class UserController {
 
 	public UserController(UserService userService) {
 		this.userService = userService;
-	}		
+	}
 
 	@GetMapping("users")
 	public List<UserDto> getUsers() {
 		return userService.getAll();
-	}	
+	}
+
 	@GetMapping("users/@{username}")
 	public UserDto getUserByUsername(@PathVariable String username, HttpServletResponse response) {
-		if(userService.findByUsername(username)!=null)
+		if (userService.findByUsername(username) != null)
 			return userService.findByUsername(username);
-		else {try {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Such user doesn't exist or is deleted.");
-		} catch (IOException e) {			
-			e.printStackTrace();
+		else {
+			try {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Such user doesn't exist or is deleted.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
-		return null;
-		}
-	}	
+	}
+
 	@GetMapping("validate/username/exists/@{username}")
 	public boolean username(@PathVariable String username) {
 		return userService.usernameExists(username);
 	}
+
 	@GetMapping("validate/username/available/@{username}")
 	public boolean usernameAvailable(@PathVariable String username) {
 		return userService.usernameAvailable(username);
-	}		
+	}
+
 	@PostMapping("users")
-	public void buildAnUser(@RequestBody UserDtoToCreate buildIt, HttpServletResponse response) {		
-		if(userService.post(buildIt)!=null)
+	public void buildAnUser(@RequestBody UserDtoToCreate buildIt, HttpServletResponse response) {
+		if (userService.post(buildIt) != null)
 			response.setStatus(HttpServletResponse.SC_CREATED);
 		else
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Any required fields are missing or the username provided is already taken.");
-			} catch (IOException e) {				
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"Any required fields are missing or the username provided is already taken.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}	
+	}
+
 	@DeleteMapping("users/@{username}")
-	public void deleteTheUser(@RequestBody Credentials deleteIt, HttpServletResponse response) {		
-		if(userService.delete(deleteIt)!=null)
+	public void deleteTheUser(@RequestBody Credentials deleteIt, HttpServletResponse response) {
+		if (userService.delete(deleteIt) != null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The username doesn't exist or the password is wrong.");
-			} catch (IOException e) {				
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"The username doesn't exist or the password is wrong.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}	
+	}
+
 	@PatchMapping("users/@{username}")
-	public void patchTheUser(@RequestBody UserDtoToCreate buildIt, @PathVariable String username, HttpServletResponse response) {		
-		if(userService.patch(buildIt, username)!=null)
+	public void patchTheUser(@RequestBody UserDtoToCreate buildIt, @PathVariable String username,
+			HttpServletResponse response) {
+		if (userService.patch(buildIt, username) != null)
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The username doesn't exist or the password is wrong.");
-			} catch (IOException e) {				
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"The username doesn't exist or the password is wrong.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}	
+	}
+
 	@PostMapping("users/@{username}/follow")
-	public void followTheUser(@RequestBody Credentials credentials, @PathVariable String username, HttpServletResponse response) {		
-		if(userService.follow(credentials, username))
+	public void followTheUser(@RequestBody Credentials credentials, @PathVariable String username,
+			HttpServletResponse response) {
+		if (userService.follow(credentials, username))
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The user doesn't exist, the password is wrong or the user is already followed.");
-			} catch (IOException e) {				
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"The user doesn't exist, the password is wrong or the user is already followed.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}	
+	}
+
 	@PostMapping("users/@{username}/unfollow")
-	public void unfollowTheUser(@RequestBody Credentials credentials, @PathVariable String username, HttpServletResponse response) {		
-		if(userService.unfollow(credentials, username))
+	public void unfollowTheUser(@RequestBody Credentials credentials, @PathVariable String username,
+			HttpServletResponse response) {
+		if (userService.unfollow(credentials, username))
 			response.setStatus(HttpServletResponse.SC_OK);
 		else
 			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The user doesn't exist, the password is wrong or the user isn't followed.");
-			} catch (IOException e) {				
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"The user doesn't exist, the password is wrong or the user isn't followed.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}	
+	}
+
 	@GetMapping("users/@{username}/followers")
 	public List<UserDto> getFollowers(@PathVariable String username) {
 		return userService.getFollowers(username);
-	}	
+	}
+
 	@GetMapping("users/@{username}/following")
 	public List<UserDto> getFollowed(@PathVariable String username) {
 		return userService.getFollowed(username);
-	}	
-	
+	}
 
 }

@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dto.SimpleTweetDto;
@@ -15,23 +14,22 @@ import com.example.entities.Credentials;
 import com.example.entities.Tweet;
 import com.example.entities.User;
 import com.example.mapper.TweetMapper;
-import com.example.mapper.UserMapper;
 import com.example.repository.TweetRepository;
 import com.example.repository.UserRepository;
 import com.google.common.collect.Lists;
 
 @Service
 public class TweetService {
-	
-	private TweetRepository tweetRepo;	
-	private TweetMapper tweetMapper;	
-	private UserRepository userRepo;	
+
+	private TweetRepository tweetRepo;
+	private TweetMapper tweetMapper;
+	private UserRepository userRepo;
 
 	public TweetService(TweetRepository tweetRepo, TweetMapper tweetMapper) {
 		this.tweetMapper = tweetMapper;
 		this.tweetRepo = tweetRepo;
 	}
-	
+
 	public List<TweetDto> getTweets(String username) {
 		if (userRepo.findByCredentialsUsernameAndIsAvailableTrue(username) != null)
 			return Lists.reverse(userRepo.findByCredentialsUsername(username).getTweets().stream()
@@ -115,13 +113,15 @@ public class TweetService {
 		else {
 			Tweet newTweet = tweetMapper.fromTweetDtoToCreate(buildIt);
 			newTweet.setNotDeleted(true);
-			newTweet.setAuthor(userRepo.findByCredentialsUsernameAndIsAvailableTrue(buildIt.getCredentials().getUsername()));
+			newTweet.setAuthor(
+					userRepo.findByCredentialsUsernameAndIsAvailableTrue(buildIt.getCredentials().getUsername()));
 			tweetRepo.save(newTweet);
-			userRepo.findByCredentialsUsernameAndIsAvailableTrue(buildIt.getCredentials().getUsername()).getTweets().add(newTweet);
+			userRepo.findByCredentialsUsernameAndIsAvailableTrue(buildIt.getCredentials().getUsername()).getTweets()
+					.add(newTweet);
 
 			if (String.valueOf(newTweet.getContent().charAt(0)) == "#") {
 				String label = newTweet.getContent().split(" ")[0];
-			}           
+			}
 			// add hashtag & mentions
 
 			return tweetMapper.toSimpleDto(newTweet);

@@ -1,17 +1,17 @@
 package com.example.dto;
 
 public class CredentialsDto {
-	
+
 	private String username;
-	private String password;	
-	
-	public CredentialsDto() {		
+	private String password;
+
+	public CredentialsDto() {
 	}
-	
+
 	public CredentialsDto(String username, String password) {
 		super();
 		this.setUsername(username);
-		this.setPassword(password);			
+		this.setPassword(password);
 	}
 
 	public String getUsername() {

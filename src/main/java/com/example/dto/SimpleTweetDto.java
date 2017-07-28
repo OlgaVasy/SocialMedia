@@ -5,18 +5,18 @@ import java.sql.Date;
 import com.example.entities.User;
 
 public class SimpleTweetDto {
-	
+
 	private User author;
 	private Date posted;
 	private String content;
-	
-	public SimpleTweetDto() {		
+
+	public SimpleTweetDto() {
 	}
-	
+
 	public SimpleTweetDto(User author, Date posted, String content) {
 		super();
 		this.setAuthor(author);
-		this.setPosted(posted);	
+		this.setPosted(posted);
 		this.setContent(content);
 	}
 

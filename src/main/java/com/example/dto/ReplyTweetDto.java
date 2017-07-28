@@ -7,22 +7,22 @@ import javax.persistence.ManyToMany;
 import com.example.entities.Tweet;
 import com.example.entities.User;
 
-public class ReplyTweetDto {	
-	
+public class ReplyTweetDto {
+
 	private User author;
 	private Date posted;
-	private Tweet inReplyTo;	
-	
+	private Tweet inReplyTo;
+
 	@ManyToMany
-	private Set<User>liked;	
-	
-	public ReplyTweetDto() {		
+	private Set<User> liked;
+
+	public ReplyTweetDto() {
 	}
-	
+
 	public ReplyTweetDto(User author, Date posted, Tweet inReplyTo) {
 		super();
 		this.setAuthor(author);
-		this.setPosted(posted);	
+		this.setPosted(posted);
 		this.setInReplyTo(inReplyTo);
 	}
 
@@ -49,7 +49,5 @@ public class ReplyTweetDto {
 	public void setInReplyTo(Tweet inReplyTo) {
 		this.inReplyTo = inReplyTo;
 	}
-	
-
 
 }

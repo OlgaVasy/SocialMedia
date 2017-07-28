@@ -2,18 +2,18 @@ package com.example.dto;
 
 import com.example.entities.Credentials;
 
-public class TweetDtoToCreate{
-	
+public class TweetDtoToCreate {
+
 	private Credentials credentials;
 	private String content;
-	
-	public TweetDtoToCreate() {		
+
+	public TweetDtoToCreate() {
 	}
-	
+
 	public TweetDtoToCreate(Credentials credentials, String post) {
 		super();
 		this.setCredentials(credentials);
-		this.setContent(content);		
+		this.setContent(content);
 	}
 
 	public Credentials getCredentials() {

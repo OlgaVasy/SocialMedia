@@ -5,19 +5,21 @@ import java.sql.Date;
 import com.example.entities.Profile;
 
 public class UserDto {
-	
+
 	private String username;
 	private Profile profile;
 	private Date timestamp;
-	
-	public UserDto() {			
-	}	
+
+	public UserDto() {
+	}
+
 	public UserDto(String username, Profile profile, Date timestamp) {
 		super();
 		this.setUsername(username);
-		this.setProfile(profile);	
+		this.setProfile(profile);
 		this.timestamp = timestamp;
 	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -41,6 +43,5 @@ public class UserDto {
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-
 
 }

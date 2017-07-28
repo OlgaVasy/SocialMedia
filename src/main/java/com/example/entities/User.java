@@ -13,51 +13,54 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "media_user")
 public class User {
-	
+
 	@Id
-	@GeneratedValue	
-	private Integer id;	
-	
+	@GeneratedValue
+	private Integer id;
+
 	private Date timestamp;
-	
+
 	@Embedded
 	private Profile profile;
 
 	@Embedded
-	private Credentials credentials;	
-	
-	private boolean isAvailable=true;
-	
+	private Credentials credentials;
+
+	private boolean isAvailable = true;
+
 	@Column(name = "user_followers", columnDefinition = "varchar")
 	@ManyToMany
-	private Set<User>followers;
-	
+	private Set<User> followers;
+
 	@Column(name = "user_followed", columnDefinition = "varchar")
 	@ManyToMany(mappedBy = "followers")
-	private Set<User>followed;
-	
+	private Set<User> followed;
+
 	@OneToMany(mappedBy = "author")
-	private Set<Tweet>tweets;
-	
+	private Set<Tweet> tweets;
+
 	@ManyToMany
-	private Set<Tweet>mentions;
-	
+	private Set<Tweet> mentions;
+
 	@ManyToMany(mappedBy = "liked")
-	private Set<Tweet>like;
-		
-	
+	private Set<Tweet> like;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
-	}	
+	}
+
 	public Profile getProfile() {
 		return profile;
 	}
+
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +68,7 @@ public class User {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,57 +85,73 @@ public class User {
 			return false;
 		return true;
 	}
-	public Date timestamp(){
+
+	public Date timestamp() {
 		return new Date(System.currentTimeMillis());
 	}
+
 	public Date getTimestamp() {
 		return timestamp;
 	}
+
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
+
 	public boolean isAvailable() {
 		return isAvailable;
 	}
+
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
+
 	public Credentials getCredentials() {
 		return credentials;
 	}
+
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
+
 	public Set<User> getFollowers() {
 		return followers;
 	}
+
 	public void setFollowers(Set<User> followers) {
 		this.followers = followers;
 	}
+
 	public Set<User> getFollowed() {
 		return followed;
 	}
+
 	public void setFollowed(Set<User> followed) {
 		this.followed = followed;
 	}
+
 	public Set<Tweet> getMentions() {
 		return mentions;
 	}
+
 	public void setMentions(Set<Tweet> mentions) {
 		this.mentions = mentions;
 	}
+
 	public Set<Tweet> getTweets() {
 		return tweets;
 	}
+
 	public void setTweets(Set<Tweet> tweets) {
 		this.tweets = tweets;
 	}
+
 	public Set<Tweet> getLike() {
 		return like;
 	}
+
 	public void setLike(Set<Tweet> like) {
 		this.like = like;
 	}
-	
 
 }

@@ -7,15 +7,15 @@ public class UserDtoToCreate {
 
 	private Credentials credentials;
 	private Profile profile;
-	
-	public UserDtoToCreate() {		
+
+	public UserDtoToCreate() {
 	}
-	
+
 	public UserDtoToCreate(Credentials credentials, Profile profile) {
 		super();
 		this.setCredentials(credentials);
-		this.setProfile(profile);		
-	}	
+		this.setProfile(profile);
+	}
 
 	public Profile getProfile() {
 		return profile;
@@ -32,7 +32,5 @@ public class UserDtoToCreate {
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
-
-
 
 }

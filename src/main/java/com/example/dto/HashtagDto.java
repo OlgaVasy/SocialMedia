@@ -3,18 +3,18 @@ package com.example.dto;
 import java.sql.Date;
 
 public class HashtagDto {
-	
+
 	private String label;
 	private Date firstUsed;
 	private Date lastUsed;
-	
-	public HashtagDto() {		
+
+	public HashtagDto() {
 	}
-	
+
 	public HashtagDto(String label, Date firstUsed, Date lastUsed) {
 		super();
 		this.setLabel(label);
-		this.setFirstUsed(firstUsed);	
+		this.setFirstUsed(firstUsed);
 		this.setLastUsed(lastUsed);
 	}
 

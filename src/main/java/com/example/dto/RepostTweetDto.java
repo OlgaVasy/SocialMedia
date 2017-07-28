@@ -6,18 +6,18 @@ import com.example.entities.Tweet;
 import com.example.entities.User;
 
 public class RepostTweetDto {
-	
+
 	private User author;
 	private Date posted;
 	private Tweet repostOf;
-	
-	public RepostTweetDto() {		
+
+	public RepostTweetDto() {
 	}
-	
+
 	public RepostTweetDto(User author, Date posted, Tweet repostOf) {
 		super();
 		this.setAuthor(author);
-		this.setPosted(posted);	
+		this.setPosted(posted);
 		this.setRepostOf(repostOf);
 	}
 
